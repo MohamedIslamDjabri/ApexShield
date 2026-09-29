@@ -1,0 +1,6 @@
+{
+  "name": "ApexShield Roofing",
+  "description": "Premier residential roofing, roof replacement, drone inspections, and storm damage restoration contractor in Central Texas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
