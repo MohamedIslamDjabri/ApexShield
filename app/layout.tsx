@@ -48,8 +48,8 @@ export default function RootLayout({
     <html lang="en" className={`${jakarta.variable} ${inter.variable}`}>
       <body className="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen">
         <Header />
-        {/* Main wrapper: header is fixed (approx 116px height including top bar), so top padding ensures clean layout */}
-        <main className="w-full pt-[116px] flex-grow pb-16 lg:pb-0">
+        {/* Main wrapper: header is fixed (h-20 / 80px), so top padding ensures clean layout */}
+        <main className="w-full pt-20 flex-grow pb-16 lg:pb-0">
           {children}
         </main>
         <Footer />

@@ -53,7 +53,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Filter Bar */}
-      <div className="bg-white border-b border-slate-200 sticky top-[116px] z-30 shadow-sm">
+      <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4 overflow-x-auto">
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-[#F97316] flex-shrink-0" />

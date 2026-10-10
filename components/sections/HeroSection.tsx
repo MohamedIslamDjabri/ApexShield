@@ -30,13 +30,6 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Value Prop & Trust Hooks */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 w-fit">
-              <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
-              <span className="font-label-sm text-xs text-[#CFE5FF] tracking-wide uppercase font-bold">
-                Ranked #1 Residential Roofing Contractor in Central Texas
-              </span>
-            </div>
-
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] text-balance">
               Protect Your Home With a Roof{' '}
               <span className="text-[#CFE5FF]">Built to Last.</span>

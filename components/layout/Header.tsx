@@ -8,7 +8,6 @@ import { Logo } from '@/components/ui/Logo';
 import { AIChatDrawer } from '@/components/ai/AIChatDrawer';
 import {
   PhoneCall,
-  AlertTriangle,
   Menu,
   X,
   ArrowRight,
@@ -47,40 +46,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-200">
-      {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="bg-[#0B1F33] text-white border-b border-white/10 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-white">
-              <AlertTriangle className="w-3.5 h-3.5 text-[#F97316] flex-shrink-0" />
-              <span className="font-medium truncate text-[11px] sm:text-xs">
-                {SITE_CONFIG.announcement.badge}
-              </span>
-            </div>
-            <span className="hidden md:inline text-slate-500">|</span>
-            <span className="hidden md:inline text-slate-300 text-xs">
-              {SITE_CONFIG.announcement.license}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 sm:gap-6 flex-shrink-0">
-            <a
-              href={SITE_CONFIG.phoneRaw}
-              className="flex items-center gap-1.5 text-white hover:text-[#F97316] transition-colors font-bold text-xs sm:text-sm"
-              aria-label={`Call ApexShield at ${SITE_CONFIG.phone}`}
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-[#F97316]" />
-              <span>{SITE_CONFIG.phone}</span>
-            </a>
-            <div className="hidden sm:flex items-center gap-2 text-slate-300 text-xs">
-              <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
-              <span>{SITE_CONFIG.announcement.status}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN NAVIGATION BAR */}
+      {/* MAIN NAVIGATION BAR */}
       <div
         className={`h-20 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 transition-shadow duration-300 ${
           scrolled ? 'shadow-md' : 'shadow-sm'
@@ -262,9 +228,9 @@ export function Header() {
         </div>
       </div>
 
-      {/* 3. MOBILE NAVIGATION DRAWER */}
+      {/* MOBILE NAVIGATION DRAWER */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[116px] bottom-0 bg-white/98 backdrop-blur-xl border-b border-slate-200 z-40 overflow-y-auto px-4 py-6 shadow-2xl animate-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-white/98 backdrop-blur-xl border-b border-slate-200 z-40 overflow-y-auto px-4 py-6 shadow-2xl animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-2">
             <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-3 pb-1">
               Navigation
