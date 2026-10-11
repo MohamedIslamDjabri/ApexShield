@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import {
   ShieldCheck,
   Check,
@@ -27,9 +28,26 @@ export function FinalCTABanner() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 lg:pb-24 w-full">
-      <div className="relative bg-[#0B1F33] rounded-2xl overflow-hidden shadow-2xl p-8 sm:p-12 lg:p-16 text-white border border-white/10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative bg-[#0B1F33] rounded-2xl overflow-hidden shadow-2xl p-8 sm:p-12 lg:p-16 text-white border border-white/10"
+      >
         {/* Glow */}
-        <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-[#F97316]/15 blur-3xl pointer-events-none"></div>
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.12, 0.22, 0.12],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-[#F97316]/20 blur-3xl pointer-events-none"
+        />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 flex flex-col gap-4">
@@ -63,7 +81,11 @@ export function FinalCTABanner() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-xl p-6 sm:p-8 text-slate-800 shadow-xl border border-slate-200">
+            <motion.div
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-xl p-6 sm:p-8 text-slate-800 shadow-xl border border-slate-200"
+            >
               <h3 className="font-headline-sm text-xl sm:text-2xl font-bold text-[#0B1F33] mb-1">
                 Request Free Estimate
               </h3>
@@ -106,10 +128,12 @@ export function FinalCTABanner() {
                     className="w-full h-11 px-4 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F97316]"
                   />
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={loading}
-                    className="w-full mt-1 py-3.5 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.99] disabled:opacity-75"
+                    className="w-full mt-1 py-3.5 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg transition-all disabled:opacity-75"
                   >
                     {loading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -119,17 +143,17 @@ export function FinalCTABanner() {
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
-                  </button>
+                  </motion.button>
 
                   <p className="text-[11px] text-slate-500 text-center">
                     We respect your privacy. No spam. No automated robocalls.
                   </p>
                 </form>
               )}
-            </div>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

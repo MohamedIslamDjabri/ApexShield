@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, type Variants } from 'motion/react';
 import { SITE_CONFIG } from '@/constants/data';
 import { Phone, MapPin, ArrowRight } from 'lucide-react';
 
@@ -17,11 +20,32 @@ export function ServiceAreasSection() {
     'Dripping Springs',
   ];
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const pillVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+  };
+
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-24 w-full">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-24 w-full overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left: Cities Coverage */}
-        <div className="lg:col-span-6 flex flex-col gap-6">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-6 flex flex-col gap-6"
+        >
           <div className="flex flex-col gap-2">
             <span className="font-label-sm text-xs uppercase tracking-widest text-[#F97316] font-bold">
               Local Presence
@@ -34,21 +58,31 @@ export function ServiceAreasSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2"
+          >
             {cities.map((city) => (
-              <Link
-                key={city}
-                href="/service-areas"
-                className="flex items-center gap-2 p-3 rounded-lg bg-[#EFF4FF] hover:bg-[#DCE9FF] text-[#0B1F33] font-semibold text-xs sm:text-sm border border-blue-100 transition-colors"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#F97316]"></span>
-                <span>{city}</span>
-              </Link>
+              <motion.div key={city} variants={pillVariants} whileHover={{ scale: 1.03 }}>
+                <Link
+                  href="/service-areas"
+                  className="flex items-center gap-2 p-3 rounded-lg bg-[#EFF4FF] hover:bg-[#DCE9FF] text-[#0B1F33] font-semibold text-xs sm:text-sm border border-blue-100 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#F97316]"></span>
+                  <span>{city}</span>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Phone Dispatch Callout */}
-          <div className="p-6 rounded-xl bg-[#E5EEFF] border border-blue-200 flex items-center justify-between gap-4 mt-2">
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="p-6 rounded-xl bg-[#E5EEFF] border border-blue-200 flex items-center justify-between gap-4 mt-2 transition-shadow"
+          >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-[#F97316] text-white flex items-center justify-center flex-shrink-0 shadow-sm">
                 <Phone className="w-5 h-5" />
@@ -70,18 +104,24 @@ export function ServiceAreasSection() {
               <span>{SITE_CONFIG.phone}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right: Central Texas Coverage Map Container */}
-        <div className="lg:col-span-6">
+        <motion.div
+          initial={{ opacity: 0, x: 24, scale: 0.98 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="lg:col-span-6"
+        >
           <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] bg-slate-200 border border-slate-300">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx4zxH1bMd6fQaKeACsRqCSLUmJoUBK28rw32DXcgbZctesNAgsZT_r9dxlL0tQJ_AN374D8ktRHplWww2VGb48ltt6pkLU-oqvP5wE8CdEZRoyfRw4t5C5E8dwXI8VsUz2pT1PstqC1GOlR_8C16un3xADI0cWhNb9gETFhRX2Nxl544vlxBsfvd8Xl84Tiu6j_JDyPeqgaaGFIGhB0S7vsYvKbeu4pUYNTbya5MPXXhsB7qSCjAU"
               alt="ApexShield Central Texas Service Area Map covering Austin, Round Rock, Cedar Park"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 hover:scale-105"
               referrerPolicy="no-referrer"
             />
             {/* Map Overlay Badges */}
@@ -100,7 +140,7 @@ export function ServiceAreasSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

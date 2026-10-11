@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Phone, MessageSquare } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Sparkles, Phone } from 'lucide-react';
 import { AIChatDrawer } from './AIChatDrawer';
 
 export function FloatingAIButton() {
@@ -15,25 +16,34 @@ export function FloatingAIButton() {
 
   return (
     <>
-      {/* Floating Action Button */}
-      <div className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2">
+      {/* Floating Action Button with Smooth Spring Entry */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.5, ease: 'easeOut' }}
+        className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2"
+      >
         {/* Quick Voice Call Mini Pill */}
-        <button
+        <motion.button
+          whileHover={{ x: -4, scale: 1.02 }}
+          whileTap={{ scale: 0.96 }}
           type="button"
           onClick={() => openWithTab('voice')}
-          className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-[#0B1F33] text-xs font-bold shadow-lg border border-slate-200 hover:border-[#F97316] transition-all transform hover:-translate-x-1"
+          className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-[#0B1F33] text-xs font-bold shadow-lg border border-slate-200 hover:border-[#F97316] transition-all"
           aria-label="Start AI Voice Booking Call"
         >
           <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></span>
           <Phone className="w-3.5 h-3.5 text-[#F97316]" />
           <span>AI Voice Booking Call</span>
-        </button>
+        </motion.button>
 
         {/* Main Floating Trigger */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           type="button"
           onClick={() => openWithTab('chat')}
-          className="group relative flex items-center gap-2.5 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#0B1F33] text-white shadow-2xl border-2 border-white/20 hover:border-[#F97316] transition-all transform hover:scale-105 active:scale-95"
+          className="group relative flex items-center gap-2.5 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#0B1F33] text-white shadow-2xl border-2 border-white/20 hover:border-[#F97316] transition-all"
           aria-label="Open ApexShield AI Assistant"
         >
           {/* Subtle safety-orange radar ping */}
@@ -54,8 +64,8 @@ export function FloatingAIButton() {
               Chat &amp; Voice Booking
             </span>
           </div>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {/* AI Drawer / Modal */}
       <AIChatDrawer

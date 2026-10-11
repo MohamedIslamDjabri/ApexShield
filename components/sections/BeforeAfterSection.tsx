@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'motion/react';
 import { ArrowRight, MoveHorizontal, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export function BeforeAfterSection() {
@@ -28,7 +29,13 @@ export function BeforeAfterSection() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-24 w-full">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+      >
         <div className="flex flex-col gap-2 max-w-2xl">
           <span className="font-label-sm text-xs uppercase tracking-widest text-[#F97316] font-bold">
             Proven Transformations
@@ -49,10 +56,16 @@ export function BeforeAfterSection() {
             Austin Local
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Interactive Before & After Draggable Slider Module */}
-      <div className="mb-14 bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98, y: 24 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="mb-14 bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#F97316]">
@@ -133,19 +146,26 @@ export function BeforeAfterSection() {
         <p className="text-center text-xs text-slate-500 mt-3">
           Drag slider left or right to inspect before and after craftsmanship
         </p>
-      </div>
+      </motion.div>
 
       {/* 3 Projects Side-by-Side Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Project 1 */}
-        <div className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ y: -6 }}
+          className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200"
+        >
           <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtKNsmHTqUIqtZrJUxUtI-ZyoiaifDPJzPBrileKn5oAwHkuN9ZQEG3B6wps2cEZL3CRsc2UeEGICXid0TFTp_1jReYIYTzIfA-Rk2JEjpY4ugHAe6NtUpTax27SbrF6Br995JqOia9xUPcuCVjk0U9kAqgqYq6XnEbaJUNYUjZKMsQ220eH0PfxzwQy7D3JKaNHw6jeaRLQr7gJVMBo68LwEh4-Gmify1KRsFkmym-5HJ9HzgRzWd"
               alt="Architectural Shingle Upgrade in Davenport Ranch, Austin TX"
               fill
               sizes="(max-width: 1024px) 100vw, 33vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-500 hover:scale-105"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 left-3 bg-[#0B1F33]/85 backdrop-blur text-white px-3 py-1 rounded text-xs font-semibold">
@@ -167,17 +187,24 @@ export function BeforeAfterSection() {
               <span className="text-[#F97316] font-bold">130 MPH Wind Rated</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Project 2 */}
-        <div className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          whileHover={{ y: -6 }}
+          className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200"
+        >
           <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbX6OVRR_ut_-lnnfzcwFo5vxKVKA97ECjIylef1vROAIeRHLxukcEJstIj7XTUGkS8exTjXCD5ZL923dLm5uL8-Ikr1k1d0GGPExjGNJRK7RXfakwoOtMQ4sBQSBvSmADvKgv8uW-RRqWXwM1tNQwKQTluphmPf7WMIafeMepGzhlnzrDOJZ6bfzNnfHAltCtwuLb8BMxpPM_Cv3rSafCBtMGg8FNiXX0bobgWb4L0byps7h44nsH"
               alt="Hailstorm Damage Restoration in Forest Creek, Round Rock TX"
               fill
               sizes="(max-width: 1024px) 100vw, 33vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-500 hover:scale-105"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 left-3 bg-[#0B1F33]/85 backdrop-blur text-white px-3 py-1 rounded text-xs font-semibold">
@@ -199,17 +226,24 @@ export function BeforeAfterSection() {
               <span className="text-[#F97316] font-bold">Zero Out of Pocket</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Project 3 */}
-        <div className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          whileHover={{ y: -6 }}
+          className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col justify-between border border-slate-200"
+        >
           <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR66DvOV8d0NEdViAdw3Vs84if0imFCKSIgYrp-5FGhYS8h5C5scfmmXP4pJuKpLYLO6gIb9krTyMRgXd4hUONUSTPvoFUGJ3AxiRDw3Ih-8Ce2IVS9CDeaj0iaZsp_GRFLB_OBxOXDG8cTVaOH3A6HP922ACAWFZFLLmwvhwADlj_2inilwgIO1S66CEmEE8TxGT0xTQcrgA6pd39PvwBmdYfgiAvFJUOG1iBTwarYqgMmNbOP-uT"
               alt="Standing Seam Metal Roof in Westlake Hills TX"
               fill
               sizes="(max-width: 1024px) 100vw, 33vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-500 hover:scale-105"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 left-3 bg-[#0B1F33]/85 backdrop-blur text-white px-3 py-1 rounded text-xs font-semibold">
@@ -231,18 +265,26 @@ export function BeforeAfterSection() {
               <span className="text-[#F97316] font-bold">Class A Fire Rated</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="flex justify-center mt-12">
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#E5EEFF] hover:bg-[#DCE9FF] text-[#0B1F33] font-semibold text-sm transition-colors border border-blue-200"
-        >
-          <span>View Full Portfolio of 120+ Central Texas Projects</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+        className="flex justify-center mt-12"
+      >
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#E5EEFF] hover:bg-[#DCE9FF] text-[#0B1F33] font-semibold text-sm transition-colors border border-blue-200"
+          >
+            <span>View Full Portfolio of 120+ Central Texas Projects</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

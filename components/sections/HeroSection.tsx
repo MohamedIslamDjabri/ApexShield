@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { motion, type Variants } from 'motion/react';
 import { SITE_CONFIG } from '@/constants/data';
 import { QuickEstimateForm } from '@/components/forms/QuickEstimateForm';
 import {
@@ -10,11 +13,37 @@ import {
 } from 'lucide-react';
 
 export function HeroSection() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <section className="relative w-full -mt-20 overflow-hidden bg-[#0B1F33] text-white">
-      {/* Background Image with Scrim */}
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center mix-blend-luminosity opacity-40 scale-105 transition-transform duration-1000 ease-out"
+      {/* Background Image with Scrim & Subtle Ambient Drift */}
+      <motion.div
+        initial={{ scale: 1.08, opacity: 0 }}
+        animate={{ scale: 1.02, opacity: 0.4 }}
+        transition={{ duration: 1.6, ease: 'easeOut' }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center mix-blend-luminosity"
         style={{
           backgroundImage:
             "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBme3HRP8Qwkr8wud1R_UVrtDV8-N1ENyRRh9i_UJA-RUey_RolfM2oe0cS9soLBm0QW9fqDd41AjpOCmXZVfdtzT-1YwXH4R2DLyjfohFks2J1ffSyBqyfhpKWpeXCUWJYuJFmxJ0lCFXY1akYbkKN0FRSHwtlcLXyLo6b12BDlTsJ7qdWzReBMDNLBfgaCFmSv33x0kXGhqJ6ZkF6uNZNfnxNYi8wy78uWM6KpOLwhX2clQ7yNkyS')",
@@ -24,58 +53,90 @@ export function HeroSection() {
 
       {/* Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#00050E] via-[#0B1F33]/95 to-[#0B1F33]/70"></div>
-      <div className="absolute -top-32 right-1/4 w-96 h-96 rounded-full bg-[#F97316]/10 blur-3xl pointer-events-none"></div>
+      <motion.div
+        animate={{
+          scale: [1, 1.15, 1],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute -top-32 right-1/4 w-96 h-96 rounded-full bg-[#F97316]/15 blur-3xl pointer-events-none"
+      />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-32 pb-20 lg:pt-36 lg:pb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Value Prop & Trust Hooks */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] text-balance">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-span-7 flex flex-col gap-6"
+          >
+            <motion.h1
+              variants={itemVariants}
+              className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] text-balance"
+            >
               Protect Your Home With a Roof{' '}
               <span className="text-[#CFE5FF]">Built to Last.</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg sm:text-xl text-[#AEC9E8] max-w-2xl leading-relaxed">
+            <motion.p
+              variants={itemVariants}
+              className="text-lg sm:text-xl text-[#AEC9E8] max-w-2xl leading-relaxed"
+            >
               Professional residential roofing, roof replacement, and repairs from a trusted local team with over 20 years of uncompromising structural craftsmanship.
-            </p>
+            </motion.p>
 
             {/* Micro-Trust Pillars */}
-            <div className="flex flex-wrap items-center gap-y-2.5 gap-x-6 text-sm text-[#CFE5FF] pt-1">
-              <div className="flex items-center gap-1.5">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap items-center gap-y-2.5 gap-x-6 text-sm text-[#CFE5FF] pt-1"
+            >
+              <div className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <CheckCircle2 className="w-5 h-5 text-[#F97316] flex-shrink-0" />
                 <span className="font-medium">Fast 15-Min Response</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <Shield className="w-5 h-5 text-[#F97316] flex-shrink-0" />
                 <span className="font-medium">Fully Licensed &amp; Insured (#{SITE_CONFIG.license})</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <Plane className="w-5 h-5 text-[#F97316] flex-shrink-0" />
                 <span className="font-medium">100% Free Drone Estimates</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3">
-              <a
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3"
+            >
+              <motion.a
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 href="#quick-estimate"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-base shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-base shadow-xl transition-all"
               >
                 <span>Get a Free Estimate</span>
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 href={SITE_CONFIG.phoneRaw}
                 className="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-lg bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/15 transition-all"
               >
                 <PhoneCall className="w-5 h-5 text-[#F97316]" />
                 <span>Call {SITE_CONFIG.phone}</span>
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
             {/* Real-Time Activity Ticker */}
-            <div className="flex items-center gap-4 pt-2">
+            <motion.div variants={itemVariants} className="flex items-center gap-4 pt-2">
               <div className="flex -space-x-2">
                 <div className="w-9 h-9 rounded-full bg-[#46617C] border-2 border-[#0B1F33] flex items-center justify-center text-xs font-bold text-white shadow">
                   ATX
@@ -90,13 +151,19 @@ export function HeroSection() {
               <p className="text-xs sm:text-sm text-[#AEC9E8]">
                 <strong className="text-white font-semibold">14 crews dispatched today</strong> across Williamson &amp; Travis County
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Column: Interactive Quick Estimate Card */}
-          <div className="lg:col-span-5" id="quick-estimate">
+          <motion.div
+            initial={{ opacity: 0, x: 28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
+            className="lg:col-span-5"
+            id="quick-estimate"
+          >
             <QuickEstimateForm />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

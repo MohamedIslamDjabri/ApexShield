@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { motion, type Variants } from 'motion/react';
 import {
   Plane,
   FileText,
@@ -41,13 +44,52 @@ export function ProcessSection() {
     },
   ];
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+      },
+    },
+  };
+
+  const stepVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#0B1F33] text-white py-20 lg:py-24 relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-[#4E6077]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.18, 0.1],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute -right-20 -bottom-20 w-96 h-96 bg-[#4E6077]/15 rounded-full blur-3xl pointer-events-none"
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3"
+        >
           <span className="font-label-sm text-xs uppercase tracking-widest text-[#F97316] font-bold">
             Engineered For Flawless Results
           </span>
@@ -57,22 +99,30 @@ export function ProcessSection() {
           <p className="text-base sm:text-lg text-[#AEC9E8] leading-relaxed">
             Replacing your roof doesn&apos;t have to disrupt your life. We have refined our 4-step installation protocol over two decades for maximum efficiency and architectural perfection.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+        >
           {steps.map((step) => {
             const Icon = step.icon;
             return (
-              <div
+              <motion.div
                 key={step.number}
-                className="bg-white/5 backdrop-blur-md rounded-xl p-8 flex flex-col justify-between gap-8 relative group hover:bg-white/10 transition-colors border border-white/10"
+                variants={stepVariants}
+                whileHover={{ y: -6, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
+                className="bg-white/5 backdrop-blur-md rounded-xl p-8 flex flex-col justify-between gap-8 relative group border border-white/10 transition-colors"
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-4xl sm:text-5xl font-extrabold text-[#F97316]/80 leading-none">
+                    <span className="font-display text-4xl sm:text-5xl font-extrabold text-[#F97316]/80 leading-none group-hover:text-[#F97316] transition-colors">
                       {step.number}
                     </span>
-                    <Icon className="w-7 h-7 text-[#CFE5FF]" />
+                    <Icon className="w-7 h-7 text-[#CFE5FF] group-hover:scale-110 transition-transform" />
                   </div>
                   <h3 className="font-headline-sm text-xl font-bold text-white">
                     {step.title}
@@ -86,13 +136,19 @@ export function ProcessSection() {
                   <Clock className="w-4 h-4 text-[#F97316]" />
                   <span>{step.duration}</span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Action banner under steps */}
-        <div className="mt-14 lg:mt-16 p-8 rounded-xl bg-white/10 backdrop-blur border border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-14 lg:mt-16 p-8 rounded-xl bg-white/10 backdrop-blur border border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
+        >
           <div className="flex flex-col gap-1 text-center md:text-left">
             <h4 className="font-headline-sm text-xl sm:text-2xl font-bold text-white">
               Ready to inspect your roof before the next Texas hailstorm?
@@ -101,14 +157,16 @@ export function ProcessSection() {
               Book your complimentary 4K drone assessment today. No pressure, no hassle.
             </p>
           </div>
-          <Link
-            href="/roof-inspection#book"
-            className="inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-sm flex-shrink-0 transition-transform transform hover:-translate-y-0.5 shadow-lg"
-          >
-            <span>Start Your Free Inspection</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/roof-inspection#book"
+              className="inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold text-sm flex-shrink-0 shadow-lg transition-all"
+            >
+              <span>Start Your Free Inspection</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
